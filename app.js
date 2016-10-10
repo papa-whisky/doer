@@ -1,30 +1,35 @@
 console.log('this is the app.js');
 console.log(aVariable);
 
-var addBtn = document.getElementById('add-btn');
-var newTodoInput = document.getElementById('new-todo-input');
-var todoList = document.getElementById('todo-list');
+var addBtn = document.querySelector('#add-btn');
+var newTodoInput = document.querySelector('#new-todo-input');
+var todoList = document.querySelector('#todo-list');
+var doneList = document.querySelector('#done-list');
 
 var addTodo = function() {
   var newTodoContent = newTodoInput.value;
   var newListItem = document.createElement('li');
   var newContent = document.createTextNode(newTodoContent); // Do this instead of innerHTML for compatability with old IE.
   newListItem.appendChild(newContent);
-
-  newListItem.addEventListener('click', function(event) {
-    // console.log(event.target);
-    event.target.className = 'done';
-  })
-
   todoList.appendChild(newListItem);
   newTodoInput.value = ''; // Clear input.
 
 }
 
 addBtn.addEventListener('click', addTodo);
+newTodoInput.addEventListener('keydown', function(event) {
+  if (event.keyCode === 13) {
+    addTodo();
+  }
+});
 
-var listItems = document.getElementsByTagName('li');
-
-// for (var i = 0; i < listItems.length; i++) {
-
-// }
+todoList.addEventListener('click', function() {
+  // console.log('click on you or your children');
+  // console.log(event.target);
+  
+  if (event.target.tagName === 'LI') {
+    event.target.className = 'done';
+    event.target.parentElement.removeChild(event.target);
+    doneList.appendChild(event.target);
+  }
+});
