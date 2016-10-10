@@ -1,6 +1,3 @@
-console.log('this is the app.js');
-console.log(aVariable);
-
 var addBtn = document.querySelector('#add-btn');
 var newTodoInput = document.querySelector('#new-todo-input');
 var todoList = document.querySelector('#todo-list');
@@ -29,7 +26,13 @@ todoList.addEventListener('click', function() {
   
   if (event.target.tagName === 'LI') {
     event.target.className = 'done';
-    event.target.parentElement.removeChild(event.target);
     doneList.appendChild(event.target);
+  }
+});
+
+doneList.addEventListener('click', function() {
+  if (event.target.tagName === 'LI') {
+    event.target.className = '';
+    todoList.appendChild(event.target);
   }
 });
